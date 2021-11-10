@@ -8,7 +8,7 @@ And I can easily start and stop my dev environement launching a custom dev scrip
 
 In general this probably could get generalised for most use cases where users has a script to run a  script to stop and a check to make. I should probably try whenever I figure out how to make UI in JS (i already have hard time in programming language I am proficient with).
 
-Most of that code has been adapted/ripped from the https://github.com/RedSoftwareSystems/easy_docker_containers extension.
+Most of that code has been adapted/ripped from the https://github.com/RedSoftwareSystems/easy_docker_containers extension so same license apply!
 
 ## Start and Stop kind
 
