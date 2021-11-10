@@ -3,13 +3,20 @@
 const St = imports.gi.St;
 const Gio = imports.gi.Gio; // For custom icons
 const panelMenu = imports.ui.panelMenu;
-const { arrowIcon, PopupMenuItem } = imports.ui.popupMenu;
+const { PopupMenuItem } = imports.ui.popupMenu;
 const extensionUtils = imports.misc.extensionUtils;
 const Me = extensionUtils.getCurrentExtension();
 const Kind = Me.imports.src.kind;
 const GObject = imports.gi.GObject;
 const Mainloop = imports.mainloop;
 const Main = imports.ui.main;
+
+const menuIcon = (name) =>
+ new St.Icon({
+   gicon: new Gio.ThemedIcon({ name: name }),
+   style_class: "popup-menu-icon",
+   icon_size: "16",
+ });
 
 
 // Kind icon as panel menu
@@ -52,6 +59,7 @@ var KindMenu = GObject.registerClass(
     _refreshMenu() { 
       if (this.menu.isOpen) {        
         this.menu.removeAll();
+        this._refreshCount();
         this._feedMenu().catch( (e) => this.menu.addMenuItem(new PopupMenuItem(e.message)));
       }     
     }
@@ -107,11 +115,11 @@ var KindMenu = GObject.registerClass(
         this.clusters = await Kind.getClusters();
         if (this.clusters.length > 0) {            
           this.Icon.set_gicon(Gio.icon_new_for_string(
-            Me.path + "/icons/kind.svg"
+            Me.path + "/icons/started.png"
           ));  
         } else {
           this.Icon.set_gicon(Gio.icon_new_for_string(
-            Me.path + "/icons/kind-stop.png"
+            Me.path + "/icons/stopped.png"
           ));
         }
 
@@ -127,8 +135,8 @@ var KindMenu = GObject.registerClass(
     async _feedMenu() {    
       await this._check(); 
       if (this.clusters.length > 0) {
-      
         let stopit = new PopupMenuItem(_("Stop"));
+        stopit.insert_child_at_index(menuIcon('media-playback-stop-symbolic'), 1);
         stopit.actor.connect('button-press-event', function(){ 
           Kind.runCommand("/home/chmouel/GIT/perso/config/hosts/pignon/bin/stopkind");
           this._refreshMenu();
@@ -136,6 +144,7 @@ var KindMenu = GObject.registerClass(
         this.menu.addMenuItem(stopit);
       } else {
         let stopit = new PopupMenuItem(_("Start"));
+        stopit.insert_child_at_index(menuIcon('media-playback-start-symbolic'), 1);
         stopit.actor.connect('button-press-event', function(){ 
           Kind.runCommand("/home/chmouel/GIT/perso/config/hosts/pignon/bin/startkind");
         });
