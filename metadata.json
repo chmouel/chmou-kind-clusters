@@ -1,0 +1,8 @@
+{
+  "name": "Kind Clusters",
+  "uuid": "kind-clusters@chmouel.com",
+  "description": "A GNOME Shell extension (GNOME Panel applet) to be able to control your available Kind Clusters.",
+  "url": "https://github.com/chmouel/kind-applet",
+  "version": 1,
+  "shell-version": ["3.34", "3.36", "3.38", "40", "41"]
+}
