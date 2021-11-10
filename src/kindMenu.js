@@ -29,7 +29,7 @@ var KindMenu = GObject.registerClass(
       // Custom Kind icon as menu button
       const hbox = new St.BoxLayout({ style_class: "panel-status-menu-box" });
       const gicon = Gio.icon_new_for_string(
-        Me.path + "/icons/kind.svg"
+        Me.path + "/icons/started.png"
       );
       this.Icon = new St.Icon({
         gicon: gicon,
